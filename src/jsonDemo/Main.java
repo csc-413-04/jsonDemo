@@ -17,11 +17,24 @@ public class Main {
       JsonObject obj = jsonParser.parse(br).getAsJsonObject();
 
       User[] users = gson.fromJson(obj.get("users"), User[].class);
-      String jsonString = gson.toJson(users);
+      User.loadAll();
+
+      Response response = new Response();
+      response.setUsers(users);
+      String jsonString = gson.toJson(User.getUser(0));
+
       System.out.println(jsonString);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
 
+  }
+}
+
+class Response{
+  User[] users;
+
+  public void setUsers(User[] users){
+    this.users = users;
   }
 }
